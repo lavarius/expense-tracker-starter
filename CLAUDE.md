@@ -14,11 +14,15 @@ npm run preview   # Preview production build
 
 ## Architecture
 
-This is a single-component React app (Vite + React 19). All logic lives in `src/App.jsx`:
+React + Vite app (React 19). Components in `src/`:
 
-- **State**: `transactions` array (in-memory only, no persistence), plus form inputs (`description`, `amount`, `type`, `category`) and filter state (`filterType`, `filterCategory`).
-- **Known issues**: `amount` is stored as a string, so the `totalIncome`/`totalExpenses` reductions use string concatenation instead of numeric addition — the balance calculation is broken. Amounts need `parseFloat()` before arithmetic.
-- **Categories**: hardcoded array — `["food", "housing", "utilities", "transport", "entertainment", "salary", "other"]`.
-- **No routing, no backend, no persistence** — all state resets on page refresh.
+- **`App.jsx`** — Root component. Owns the `transactions` array (in-memory, no persistence) and passes it down. Delegates all UI sections to child components.
+- **`Summary.jsx`** — Computes `totalIncome`, `totalExpenses`, and `balance` from the `transactions` prop.
+- **`TransactionForm.jsx`** — Owns form state (`description`, `amount`, `type`, `category`). Calls `onAddTransaction` callback to add to the parent's list. Amounts are parsed to numbers via `parseFloat()`.
+- **`TransactionList.jsx`** — Owns filter state (`filterType`, `filterCategory`). Renders filtered transaction table.
+
+**Categories** are hardcoded in both `TransactionForm` and `TransactionList`: `["food", "housing", "utilities", "transport", "entertainment", "salary", "other"]`.
+
+**No routing, no backend, no persistence** — all state resets on page refresh.
 
 Styling is in `src/App.css`; CSS classes `income-amount`, `expense-amount`, and `balance-amount` control the color-coding of amounts throughout the UI.
