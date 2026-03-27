@@ -19,6 +19,26 @@ h1 {
   margin-bottom: 24px;
 }
 
+.spending-chart {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.spending-chart h2 {
+  margin: 0 0 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.no-data {
+  text-align: center;
+  color: #666;
+  padding: 2rem;
+}
+
 .summary-card {
   flex: 1;
   border: 1px solid #ddd;
