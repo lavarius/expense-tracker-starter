@@ -27,10 +27,8 @@ function App() {
 
   return (
     <div className="app">
-      <div className="app-header">
-        <h1><span className="accent">Finance</span> Tracker</h1>
-        <p className="subtitle">Track your income &amp; expenses</p>
-      </div>
+      <h1>Finance Tracker</h1>
+      <p className="subtitle">Track your income and expenses</p>
 
       <Summary transactions={transactions} />
       <TransactionForm onAddTransaction={handleAddTransaction} />

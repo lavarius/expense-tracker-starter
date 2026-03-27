@@ -1,170 +1,149 @@
 :root {
-  --bg: #09090e;
-  --surface: #0f1117;
-  --surface-2: #161820;
-  --border: rgba(255, 255, 255, 0.06);
-  --border-strong: rgba(255, 255, 255, 0.1);
-  --text: #e4e6f0;
-  --muted: #585d72;
-  --accent: #e9a825;
-  --accent-dim: rgba(233, 168, 37, 0.1);
-  --income: #30d17e;
-  --income-dim: rgba(48, 209, 126, 0.08);
-  --expense: #f0607a;
-  --expense-dim: rgba(240, 96, 122, 0.08);
-  --radius-sm: 8px;
-  --radius: 14px;
+  --bg:             #0d0f18;
+  --surface:        #161923;
+  --surface-raised: #1d2030;
+  --border:         #252836;
+  --border-subtle:  #1e2130;
+  --text:           #ede8d8;
+  --text-secondary: #8d92a8;
+  --text-muted:     #4e5262;
+  --accent:         #f5a623;
+  --accent-glow:    rgba(245, 166, 35, 0.14);
+  --income:         #52d98a;
+  --income-dim:     rgba(82, 217, 138, 0.08);
+  --expense:        #f07070;
+  --expense-dim:    rgba(240, 112, 112, 0.08);
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Outfit', sans-serif;
-  font-size: 15px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
   line-height: 1.6;
-  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── Layout ── */
+/* ── Layout ─────────────────────────────── */
+
 .app {
   max-width: 860px;
   margin: 0 auto;
-  padding: 48px 24px 80px;
+  padding: 52px 24px 80px;
 }
 
-/* ── Header ── */
-.app-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 36px;
-}
+/* ── Header ─────────────────────────────── */
 
 h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.9rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-family: 'DM Serif Display', serif;
+  font-size: 3.2rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
   color: var(--text);
-  margin-bottom: 0;
   line-height: 1;
+  margin-bottom: 0;
 }
-
-h1 .accent { color: var(--accent); }
 
 .subtitle {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 0;
+  margin-top: 8px;
+  margin-bottom: 52px;
 }
 
-/* ── Summary cards ── */
+/* ── Summary cards ──────────────────────── */
+
 .summary {
   display: grid;
-  grid-template-columns: 1fr 1fr 1.3fr;
-  gap: 10px;
-  margin-bottom: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
 .summary-card {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 22px;
-  transition: border-color 0.2s;
+  padding: 24px 22px;
 }
 
-.summary-card:hover { border-color: var(--border-strong); }
+.summary-card:last-child {
+  border-left: 2px solid var(--accent);
+  box-shadow: inset 6px 0 28px var(--accent-glow);
+}
 
 .summary-card h3 {
   font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--text-muted);
   margin-bottom: 10px;
 }
 
 .income-amount {
-  font-family: 'Syne', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 26px;
+  font-weight: 600;
   color: var(--income);
+  display: block;
 }
 
 .expense-amount {
-  font-family: 'Syne', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 26px;
+  font-weight: 600;
   color: var(--expense);
+  display: block;
 }
 
 .balance-amount {
-  font-family: 'Syne', sans-serif;
-  font-size: 30px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--text);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--accent);
+  display: block;
 }
 
-.summary-card.balance-card {
-  background: var(--surface-2);
-  border-color: var(--border-strong);
-  position: relative;
-  overflow: hidden;
-}
+/* ── Shared card shell ──────────────────── */
 
-.summary-card.balance-card::after {
-  content: '';
-  position: absolute;
-  top: -24px;
-  right: -24px;
-  width: 90px;
-  height: 90px;
-  background: var(--accent);
-  opacity: 0.05;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-/* ── Panel (shared card) ── */
 .spending-chart,
 .add-transaction,
 .transactions {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 12px;
+  border-radius: 12px;
+  padding: 28px 26px;
+  margin-bottom: 20px;
 }
 
 .spending-chart h2,
 .add-transaction h2,
 .transactions h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
   color: var(--text);
   margin-bottom: 20px;
 }
 
+/* ── No-data placeholder ────────────────── */
+
 .no-data {
   text-align: center;
-  color: var(--muted);
+  color: var(--text-muted);
   padding: 3rem;
-  font-size: 14px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
 }
 
-/* ── Form ── */
+/* ── Form ───────────────────────────────── */
+
 form {
   display: flex;
   gap: 8px;
@@ -173,73 +152,79 @@ form {
 
 form input,
 form select {
-  background: var(--surface-2);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
   color: var(--text);
-  font-family: 'Outfit', sans-serif;
-  font-size: 14px;
-  padding: 10px 14px;
+  padding: 10px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  border-radius: 6px;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  -webkit-appearance: none;
+  transition: border-color 0.15s;
   appearance: none;
 }
 
-form input::placeholder { color: var(--muted); }
+form input::placeholder {
+  color: var(--text-muted);
+}
 
 form input:focus,
 form select:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
-form input[type="text"]   { flex: 2; min-width: 160px; }
-form input[type="number"] { flex: 1; min-width: 100px; }
-form select               { flex: 1; min-width: 120px; cursor: pointer; }
+form select option {
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+form input[type="text"]   { flex: 2; min-width: 140px; }
+form input[type="number"] { flex: 1; min-width: 90px;  }
+form select               { flex: 1; min-width: 110px; }
 
 form button {
+  padding: 10px 26px;
   background: var(--accent);
-  color: #09090e;
+  color: #0d0f18;
   border: none;
-  border-radius: var(--radius-sm);
-  font-family: 'Outfit', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 10px 24px;
+  border-radius: 6px;
   cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   transition: opacity 0.15s, transform 0.1s;
-  white-space: nowrap;
 }
 
-form button:hover  { opacity: 0.88; }
-form button:active { transform: scale(0.97); }
+form button:hover  { opacity: 0.85; transform: translateY(-1px); }
+form button:active { transform: translateY(0); }
 
-/* ── Filters ── */
+/* ── Filters ────────────────────────────── */
+
 .filters {
   display: flex;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .filters select {
-  background: var(--surface-2);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  font-family: 'Outfit', sans-serif;
-  font-size: 13px;
-  padding: 7px 12px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 7px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  border-radius: 6px;
   outline: none;
   cursor: pointer;
-  -webkit-appearance: none;
   appearance: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.15s;
 }
 
 .filters select:focus { border-color: var(--accent); }
 
-/* ── Table ── */
+/* ── Table ──────────────────────────────── */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -247,71 +232,66 @@ table {
 
 th {
   font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.09em;
+  font-weight: 500;
+  color: var(--text-muted);
   text-transform: uppercase;
-  color: var(--muted);
-  padding: 0 10px 12px;
+  letter-spacing: 0.14em;
+  padding: 0 16px 12px 0;
   text-align: left;
   border-bottom: 1px solid var(--border);
 }
 
 td {
-  padding: 13px 10px;
-  font-size: 14px;
-  border-bottom: 1px solid var(--border);
+  padding: 13px 16px 13px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+tbody tr {
+  transition: background 0.12s;
+}
+
+tbody tr:hover td {
+  background: var(--surface-raised);
   color: var(--text);
 }
 
-tbody tr { transition: background 0.12s; }
-tbody tr:hover { background: var(--surface-2); }
-tbody tr:last-child td { border-bottom: none; }
-
-/* ── Category badge ── */
-.category-badge {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 20px;
-  background: var(--surface-2);
-  border: 1px solid var(--border-strong);
-  color: var(--muted);
+tbody tr:last-child td {
+  border-bottom: none;
 }
 
-/* ── Amount cells in table ── */
-td.income-amount,
+td.income-amount {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--income);
+  display: table-cell;
+}
+
 td.expense-amount {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  font-family: 'Outfit', sans-serif;
-  font-variant-numeric: tabular-nums;
+  color: var(--expense);
+  display: table-cell;
 }
 
-/* ── Date cell ── */
-.date-cell {
-  font-size: 12px;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
+/* ── Delete button ──────────────────────── */
 
-/* ── Delete button ── */
 .delete-btn {
+  padding: 4px 12px;
   background: transparent;
-  border: 1px solid transparent;
-  color: var(--muted);
-  font-size: 12px;
-  font-family: 'Outfit', sans-serif;
-  padding: 5px 10px;
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.15s;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
 
 .delete-btn:hover {
-  background: var(--expense-dim);
   border-color: var(--expense);
   color: var(--expense);
+  background: var(--expense-dim);
 }
