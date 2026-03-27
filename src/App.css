@@ -1,86 +1,170 @@
+:root {
+  --bg: #09090e;
+  --surface: #0f1117;
+  --surface-2: #161820;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.1);
+  --text: #e4e6f0;
+  --muted: #585d72;
+  --accent: #e9a825;
+  --accent-dim: rgba(233, 168, 37, 0.1);
+  --income: #30d17e;
+  --income-dim: rgba(48, 209, 126, 0.08);
+  --expense: #f0607a;
+  --expense-dim: rgba(240, 96, 122, 0.08);
+  --radius-sm: 8px;
+  --radius: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ── */
 .app {
-  max-width: 800px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 48px 24px 80px;
+}
+
+/* ── Header ── */
+.app-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 36px;
 }
 
 h1 {
-  margin-bottom: 4px;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 0;
+  line-height: 1;
 }
+
+h1 .accent { color: var(--accent); }
 
 .subtitle {
-  margin-bottom: 20px;
-  color: #666;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0;
 }
 
+/* ── Summary cards ── */
 .summary {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
-.spending-chart {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 24px;
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  transition: border-color 0.2s;
 }
 
-.spending-chart h2 {
-  margin: 0 0 16px;
-  font-size: 1.1rem;
+.summary-card:hover { border-color: var(--border-strong); }
+
+.summary-card h3 {
+  font-size: 10px;
   font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.income-amount {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--income);
+}
+
+.expense-amount {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--expense);
+}
+
+.balance-amount {
+  font-family: 'Syne', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.summary-card.balance-card {
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-card.balance-card::after {
+  content: '';
+  position: absolute;
+  top: -24px;
+  right: -24px;
+  width: 90px;
+  height: 90px;
+  background: var(--accent);
+  opacity: 0.05;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ── Panel (shared card) ── */
+.spending-chart,
+.add-transaction,
+.transactions {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 12px;
+}
+
+.spending-chart h2,
+.add-transaction h2,
+.transactions h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 20px;
 }
 
 .no-data {
   text-align: center;
-  color: #666;
-  padding: 2rem;
+  color: var(--muted);
+  padding: 3rem;
+  font-size: 14px;
 }
 
-.summary-card {
-  flex: 1;
-  border: 1px solid #ddd;
-  padding: 14px;
-  background: #fff;
-}
-
-.summary-card h3 {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 4px;
-}
-
-.income-amount {
-  color: green;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.expense-amount {
-  color: red;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.balance-amount {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.add-transaction {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin-bottom: 24px;
-  background: #fff;
-}
-
-.add-transaction h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-
+/* ── Form ── */
 form {
   display: flex;
   gap: 8px;
@@ -89,80 +173,145 @@ form {
 
 form input,
 form select {
-  padding: 8px;
-  border: 1px solid #ccc;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
   font-size: 14px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-form input[type="text"] {
-  flex: 2;
+form input::placeholder { color: var(--muted); }
+
+form input:focus,
+form select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
-form input[type="number"] {
-  flex: 1;
-}
-
-form select {
-  flex: 1;
-}
+form input[type="text"]   { flex: 2; min-width: 160px; }
+form input[type="number"] { flex: 1; min-width: 100px; }
+form select               { flex: 1; min-width: 120px; cursor: pointer; }
 
 form button {
-  padding: 8px 20px;
-  background: #333;
-  color: #fff;
+  background: var(--accent);
+  color: #09090e;
   border: none;
-  cursor: pointer;
+  border-radius: var(--radius-sm);
+  font-family: 'Outfit', sans-serif;
   font-size: 14px;
+  font-weight: 600;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
 }
 
-.transactions {
-  margin-bottom: 24px;
-}
+form button:hover  { opacity: 0.88; }
+form button:active { transform: scale(0.97); }
 
-.transactions h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-
+/* ── Filters ── */
 .filters {
   display: flex;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .filters select {
-  padding: 6px;
-  border: 1px solid #ccc;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
   font-size: 13px;
+  padding: 7px 12px;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.2s;
 }
 
+.filters select:focus { border-color: var(--accent); }
+
+/* ── Table ── */
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-thead {
-  background: #f5f5f5;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
-}
-
 th {
-  font-size: 12px;
-  color: #888;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
 }
 
-.delete-btn {
-  padding: 4px 10px;
-  background: #eee;
-  border: 1px solid #ccc;
-  cursor: pointer;
+td {
+  padding: 13px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+tbody tr { transition: background 0.12s; }
+tbody tr:hover { background: var(--surface-2); }
+tbody tr:last-child td { border-bottom: none; }
+
+/* ── Category badge ── */
+.category-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  color: var(--muted);
+}
+
+/* ── Amount cells in table ── */
+td.income-amount,
+td.expense-amount {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Date cell ── */
+.date-cell {
   font-size: 12px;
-  color: #333;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Delete button ── */
+.delete-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-family: 'Outfit', sans-serif;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.delete-btn:hover {
+  background: var(--expense-dim);
+  border-color: var(--expense);
+  color: var(--expense);
 }
